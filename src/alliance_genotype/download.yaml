@@ -1,0 +1,11 @@
+### This file is a YAML configuration that specifies
+### the data to be downloaded and ingested for this project.
+### The configuration is used by `kghub-downloader`.
+### For more information, see https://github.com/monarch-initiative/kghub-downloader
+---
+- url: https://fms.alliancegenome.org/download/AGM_MGI.json.gz
+  local_name: data/AGM_MGI.json.gz
+- url: https://fms.alliancegenome.org/download/AGM_ZFIN.json.gz
+  local_name: data/AGM_ZFIN.json.gz
+- url: https://fms.alliancegenome.org/download/AGM_RGD.json.gz
+  local_name: data/AGM_RGD.json.gz

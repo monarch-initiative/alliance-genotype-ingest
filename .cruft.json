@@ -1,0 +1,24 @@
+{
+  "template": "https://github.com/glass-ships/cookiecutter-monarch-ingest.git",
+  "commit": "16557cad6e7f7aa59aa71976cbc205046049bd07",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "github_org_name": "monarch-initiative",
+      "project_name": "alliance-genotype",
+      "project_description": "KGX transform of Alliance affected_genomic_model and associations to genotype components",
+      "__project_slug": "alliance_genotype",
+      "__project_url": "https://github.com/monarch-initiative/alliance_genotype",
+      "ingest_source": "alliance",
+      "ingest_type": "genotype",
+      "__ingest_name": "alliance_genotype",
+      "min_python_version": "3.10",
+      "full_name": "Kevin Schaper",
+      "email": "kevin@tislab.org",
+      "__author": "Kevin Schaper <kevin@tislab.org>",
+      "license": "BSD-3",
+      "_template": "https://github.com/glass-ships/cookiecutter-monarch-ingest.git"
+    }
+  },
+  "directory": null
+}
