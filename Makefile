@@ -69,11 +69,12 @@ test: download
 
 .PHONY: download
 download:
-	$(RUN) alliance_genotype download
+	$(RUN) ingest download
 
 .PHONY: run
 run:
-	$(RUN) alliance_genotype transform
+	$(RUN) ingest transform
+	$(RUN) scripts/generate-report.sh
 
 
 ### Linting, Formatting, and Cleaning ###

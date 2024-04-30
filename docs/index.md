@@ -48,21 +48,21 @@ make help
 To download the data for the alliance_genotype transform:
 
 ```bash
-poetry run alliance_genotype download
+poetry run ingest download
 ```
 
 To run the Koza transform for alliance-genotype:
 
 ```bash
-poetry run alliance_genotype transform
+poetry run ingest transform
 ```
 
 To see available options:
 
 ```bash
-poetry run alliance_genotype download --help
+poetry run ingest download --help
 # or
-poetry run alliance_genotype transform --help
+poetry run ingest transform --help
 ```
 
 ---
