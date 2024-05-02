@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#alliance-genotype" class="md-skip">
+        <a href="#alliance-genotype-report" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              alliance-genotype
+              alliance-genotype Report
             
           </span>
         </div>
@@ -216,7 +216,7 @@
   
     
   
-  alliance-genotype
+  alliance-genotype Report
 
       </a>
     </li>
@@ -290,96 +290,15 @@
         
       
       
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    alliance-genotype
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
       <a href="." class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
-    alliance-genotype
+    alliance-genotype Report
   </span>
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      Table of Contents
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Requirements
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Installation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Usage
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#download-and-transform" class="md-nav__link">
-    <span class="md-ellipsis">
-      Download and Transform
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
       
     </li>
   
@@ -405,65 +324,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      Table of Contents
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Requirements
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Installation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      Usage
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Usage">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#download-and-transform" class="md-nav__link">
-    <span class="md-ellipsis">
-      Download and Transform
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -480,60 +340,7 @@
   
 
 
-<h1 id="alliance-genotype">alliance-genotype</h1>
-<p>KGX transform of Alliance affected_genomic_model and associations to genotype components</p>
-<h2 id="table-of-contents">Table of Contents</h2>
-<ul>
-<li><a href="#requirements">Requirements</a></li>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#usage">Usage</a></li>
-</ul>
-<h2 id="requirements">Requirements</h2>
-<ul>
-<li>Python &gt;= 3.10</li>
-<li><a href="https://python-poetry.org/docs/#installation">Poetry</a></li>
-</ul>
-<h2 id="installation">Installation</h2>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>alliance-genotype
-make<span class="w"> </span>install
-<span class="c1"># or</span>
-poetry<span class="w"> </span>install
-</code></pre></div>
-<blockquote>
-<p><strong>Note</strong> that the <code>make install</code> command is a convenience wrapper around <code>poetry install</code>.</p>
-</blockquote>
-<p>Once installed, you can check that everything is working as expected:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Run the pytest suite</span>
-make<span class="w"> </span><span class="nb">test</span>
-<span class="c1"># Download the data and run the Koza transform</span>
-make<span class="w"> </span>download
-make<span class="w"> </span>run
-</code></pre></div>
-<h2 id="usage">Usage</h2>
-<p>This project is set up with a Makefile for common tasks.<br />
-To see available options:</p>
-<div class="highlight"><pre><span></span><code>make<span class="w"> </span><span class="nb">help</span>
-</code></pre></div>
-<h3 id="download-and-transform">Download and Transform</h3>
-<p>To download the data for the alliance_genotype transform:</p>
-<div class="highlight"><pre><span></span><code>poetry<span class="w"> </span>run<span class="w"> </span>ingest<span class="w"> </span>download
-</code></pre></div>
-<p>To run the Koza transform for alliance-genotype:</p>
-<div class="highlight"><pre><span></span><code>poetry<span class="w"> </span>run<span class="w"> </span>ingest<span class="w"> </span>transform
-</code></pre></div>
-<p>To see available options:</p>
-<div class="highlight"><pre><span></span><code>poetry<span class="w"> </span>run<span class="w"> </span>ingest<span class="w"> </span>download<span class="w"> </span>--help
-<span class="c1"># or</span>
-poetry<span class="w"> </span>run<span class="w"> </span>ingest<span class="w"> </span>transform<span class="w"> </span>--help
-</code></pre></div>
-<hr />
-<blockquote>
-<p>This project was generated using <a href="https://github.com/monarch-initiative/cookiecutter-monarch-ingest">monarch-initiative/cookiecutter-monarch-ingest</a>.<br />
-Keep this project up to date using cruft by occasionally running in the project directory:</p>
-<div class="highlight"><pre><span></span><code>cruft<span class="w"> </span>update
-</code></pre></div>
-<p>For more information, see the <a href="https://cruft.github.io/cruft/#updating-a-project">cruft documentation</a></p>
-</blockquote>
+<h1 id="alliance-genotype-report">alliance-genotype Report</h1>
 
 
 
