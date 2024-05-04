@@ -1,7 +1,7 @@
-repo_name: 'monarch-initiative/alliance-genotype'
-repo_url: 'https://github.com/monarch-initiative/alliance-genotype'
-site_name: 'alliance-genotype'
-site_url: 'https://monarch-initiative.github.io/alliance-genotype/'
+repo_name: 'monarch-initiative/alliance-genotype-ingest'
+repo_url: 'https://github.com/monarch-initiative/alliance-genotype-ingest'
+site_name: 'alliance-genotype-ingest'
+site_url: 'https://monarch-initiative.github.io/alliance-genotype-ingest/'
 
 ### Optional: Uncomment the following line to customize the navigation bar
 # nav:

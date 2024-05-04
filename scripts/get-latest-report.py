@@ -3,7 +3,7 @@ import json
 
 
 def main():
-    url = "https://api.github.com/repos/monarch-initiative/alliance-genotype/releases/latest"
+    url = "https://api.github.com/repos/monarch-initiative/alliance-genotype-ingest/releases/latest"
     
     # Get the latest release from the GitHub API
     response = requests.get(url)
