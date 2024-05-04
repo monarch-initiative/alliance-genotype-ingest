@@ -1,6 +1,6 @@
 # alliance-genotype
 
-| [Documentation](https://monarch-initiative.github.io/alliance-genotype) |
+| [Documentation](https://monarch-initiative.github.io/alliance-genotype-ingest/docs/) |
 
 KGX transform of Alliance affected_genomic_model and associations to genotype components
 
