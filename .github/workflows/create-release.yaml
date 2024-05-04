@@ -1,12 +1,16 @@
-# - Run the transform
-# - Produce RDF? (use kgx)
-# - [Not Yet] QC/Validation (ex. 0 rows)
-# - Create release, upload output files as release artifacts
+### This workflow can be run manually from Actions tab in your repository by selecting the "Create Release" workflow.
+### When your project is ready for releases, you should:
+###   - Uncomment the `schedule` section to run this workflow automatically on a schedule.
+###     - As written, this workflow will run every Sunday at midnight UTC.
+###   - Remove the `draft: true` line from the `Create Release` step to publish the release immediately.
+# TODO: QC/Validation (ex. 0 rows)
 
 name: Create Release
 
 on:
   workflow_dispatch:
+  # schedule:
+  #   - cron: '0 0 * * 0'
 
 jobs:
   create-release:
@@ -30,6 +34,20 @@ jobs:
         run: poetry install --no-interaction
 
       - name: Run Transform
-        run: poetry run ingest transform
+        run: |
+          make run
+          poetry run python scripts/generate-rdf.py
 
-      
+      - name: Get Date for Release Tag
+        run: echo "DATE=$(date +%Y-%m-%d)" >> $GITHUB_ENV
+
+      # Further customization for this action is available. See:
+      # https://github.com/softprops/action-gh-release/?tab=readme-ov-file#-customizing
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.DATE }}
+          files: |
+            output/*
+          generate_release_notes: true
+          draft: true

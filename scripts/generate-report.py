@@ -14,7 +14,7 @@ if Path(nodes_file).exists():
     GROUP BY all
     ORDER BY all
     """
-    duckdb.sql(f"copy ({query}) to 'output/nodes_report.tsv' (header, delimiter '\t')")
+    duckdb.sql(f"copy ({query}) to 'output/alliance_genotype_nodes_report.tsv' (header, delimiter '\t')")
 
 # Edges
 if Path(edges_file).exists():
@@ -25,4 +25,4 @@ if Path(edges_file).exists():
     GROUP BY all
     ORDER BY all
     """
-    duckdb.sql(f"copy ({query}) to 'output/edges_report.tsv' (header, delimiter '\t')")
+    duckdb.sql(f"copy ({query}) to 'output/alliance_genotype_edges_report.tsv' (header, delimiter '\t')")

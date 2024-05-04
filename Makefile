@@ -72,9 +72,9 @@ download:
 	$(RUN) ingest download
 
 .PHONY: run
-run:
+run: download
 	$(RUN) ingest transform
-	$(RUN) bash scripts/generate-report.py
+	$(RUN) python scripts/generate-report.py
 
 
 ### Linting, Formatting, and Cleaning ###

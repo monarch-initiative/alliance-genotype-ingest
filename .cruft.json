@@ -1,14 +1,15 @@
 {
   "template": "https://github.com/monarch-initiative/cookiecutter-monarch-ingest.git",
-  "commit": "9d460842a890ae3511b1f7c5ccc4b3c26b8003f3",
+  "commit": "01a2a750714d65cf0842b59655cc0634ef040467",
   "checkout": null,
   "context": {
     "cookiecutter": {
       "github_org_name": "monarch-initiative",
       "project_name": "alliance-genotype",
       "project_description": "KGX transform of Alliance affected_genomic_model and associations to genotype components",
+      "__repo_name": "alliance-genotype",
       "__project_slug": "alliance_genotype",
-      "__project_url": "https://github.com/monarch-initiative/alliance_genotype",
+      "__project_url": "https://github.com/monarch-initiative/alliance-genotype",
       "ingest_source": "alliance",
       "ingest_type": "genotype",
       "__ingest_name": "alliance_genotype",
