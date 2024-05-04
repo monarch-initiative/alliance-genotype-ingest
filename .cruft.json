@@ -1,5 +1,5 @@
 {
-  "template": "https://github.com/glass-ships/cookiecutter-monarch-ingest.git",
+  "template": "https://github.com/monarch-initiative/cookiecutter-monarch-ingest.git",
   "commit": "9d460842a890ae3511b1f7c5ccc4b3c26b8003f3",
   "checkout": null,
   "context": {
@@ -17,7 +17,7 @@
       "email": "kevin@tislab.org",
       "__author": "Kevin Schaper <kevin@tislab.org>",
       "license": "BSD-3",
-      "_template": "https://github.com/glass-ships/cookiecutter-monarch-ingest.git"
+      "_template": "https://github.com/monarch-initiative/cookiecutter-monarch-ingest.git"
     }
   },
   "directory": null
