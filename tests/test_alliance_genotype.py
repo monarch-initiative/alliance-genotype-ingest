@@ -9,6 +9,7 @@ https://koza.monarchinitiative.org/Usage/testing/
 import pytest 
 
 from koza.utils.testing_utils import mock_koza
+from biolink_model.datamodel.pydanticmodel_v2 import GenotypeToVariantAssociation, Genotype
 
 # Define the ingest name and transform script path
 INGEST_NAME = "alliance_genotype"
@@ -42,7 +43,7 @@ def mgi_transform(mock_koza):
 
 def test_mgi_transform_genotype(mgi_transform):
     entities = mgi_transform
-    genotypes = [entity for entity in entities if 'biolink:Genotype' in entity.category]
+    genotypes = [entity for entity in entities if isinstance(entity, Genotype)]
     genotype = genotypes[0]
     assert genotype.id == 'MGI:3626201'
     assert genotype.name == 'Ep300<sup>tm3Pkb</sup>/Ep300<sup>+</sup> Tg(IghMyc)22Bri/0  [background:] involves: 129S6/SvEvTac * C57BL * SJL'
@@ -51,7 +52,7 @@ def test_mgi_transform_genotype(mgi_transform):
 
 def test_mgi_transform_associations(mgi_transform):
     entities = mgi_transform
-    associations = [entity for entity in entities if 'biolink:GenotypeToVariantAssociation' in entity.category]
+    associations = [entity for entity in entities if isinstance(entity, GenotypeToVariantAssociation)]
     assert len(associations) == 2
 
     association_1 = associations[0]
