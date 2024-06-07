@@ -22,18 +22,20 @@ node_properties:
   - name
   - type
   - in_taxon
+  - in_taxon_label
 
-edge_properties:
-  - id
-  - category
-  - subject
-  - predicate
-  - object
-  - qualifier
-  - primary_knowledge_source
-  - aggregator_knowledge_source
-  - knowledge_level
-  - agent_type
+# genotype to allele/variant associations are on hold initially
+#edge_properties:
+#  - id
+#  - category
+#  - subject
+#  - predicate
+#  - object
+#  - qualifier
+#  - primary_knowledge_source
+#  - aggregator_knowledge_source
+#  - knowledge_level
+#  - agent_type
 
 
 
