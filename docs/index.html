@@ -342,6 +342,27 @@
 
 <h1 id="alliance-genotype-report">alliance-genotype Report</h1>
 <p _="%" _docs_edges_report.md_="'docs/edges_report.md'" include="include">{ % include 'docs/nodes_report.md' %}</p>
+<h1 id="alliance-genotype-ingest-pipeline">Alliance Genotype Ingest Pipeline</h1>
+<p>This pipeline converts Alliance AGM files from MGI, ZFIN &amp; RGD to KGX TSV following the Biolink Model.</p>
+<p>The source files (AGM_{MGI,ZFIN,RGD}.json) provide associations to Alleles as well, but those edges are not currently captured. </p>
+<p>Example transform:
+<div class="highlight"><pre><span></span><code> {
+     &#39;primaryID&#39;: &#39;ZFIN:ZDB-FISH-150901-9455&#39;, 
+      &#39;name&#39;: &#39;acvr1l&lt;sup&gt;sk42/sk42&lt;/sup&gt;; f2Tg&#39;,
+      &#39;affectedGenomicModelComponents&#39;: [
+            {&#39;alleleID&#39;: &#39;ZFIN:ZDB-ALT-060821-6&#39;, &#39;zygosity&#39;: &#39;GENO:0000137&#39;},
+            {&#39;alleleID&#39;: &#39;ZFIN:ZDB-ALT-100701-1&#39;, &#39;zygosity&#39;: &#39;GENO:0000136&#39;}],
+       &#39;crossReference&#39;: { &#39;id&#39;: &#39;ZFIN:ZDB-FISH-150901-9455&#39;, &#39;pages&#39;: [&#39;Fish&#39;]}, 
+       &#39;taxonId&#39;: &#39;NCBITaxon:7955&#39;
+}
+</code></pre></div></p>
+<p>Is transformed into
+<div class="highlight"><pre><span></span><code>    category: biolink:Genotype
+    id: ZFIN:ZDB-FISH-150901-9455
+    name: acvr1l&lt;sup&gt;sk42/sk42&lt;/sup&gt;; f2Tg
+    in_taxon: NCBITaxon:7955
+    in_taxon_label: Danio rerio
+</code></pre></div></p>
 
 
 
