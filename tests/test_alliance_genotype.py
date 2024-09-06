@@ -70,13 +70,3 @@ def test_mgi_transform_associations(mgi_entities):
     associations = [entity for entity in entities if isinstance(entity, GenotypeToVariantAssociation)]
     assert len(associations) == 0
 
-    # These tests can come back if we decide to bring alleles in via this ingest
-    # association_1 = associations[0]
-    # assert association_1.subject == 'MGI:3626201'
-    # assert association_1.object == 'MGI:3612049'
-    # assert association_1.qualifier == 'GENO:0000135'
-    #
-    # association_2 = associations[1]
-    # assert association_2.subject == 'MGI:3626201'
-    # assert association_2.object == 'MGI:2447604'
-    # assert association_2.qualifier == 'GENO:0000606'
