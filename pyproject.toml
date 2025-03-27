@@ -13,7 +13,7 @@ koza = { git = "https://github.com/monarch-initiative/koza", branch = "develop" 
 kghub-downloader = ">=0.3.8"
 kgx = ">=2.4.0"
 biolink-model = "^4.2.0"
-duckdb = ">=0.10.2"
+duckdb = "^1.2.1"
 loguru = "*"
 
 [tool.poetry.group.dev]

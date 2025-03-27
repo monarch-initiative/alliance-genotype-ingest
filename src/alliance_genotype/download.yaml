@@ -3,9 +3,21 @@
 ### The configuration is used by `kghub-downloader`.
 ### For more information, see https://github.com/monarch-initiative/kghub-downloader
 ---
+# Mouse
 - url: https://fms.alliancegenome.org/download/AGM_MGI.json.gz
   local_name: data/AGM_MGI.json.gz
+- url: https://fms.alliancegenome.org/download/VARIANT-ALLELE_NCBITaxon10090.tsv.gz
+  local_name: data/VARIANT-ALLELE_NCBITaxon10090.tsv.gz
+
+# Zebrafish
 - url: https://fms.alliancegenome.org/download/AGM_ZFIN.json.gz
   local_name: data/AGM_ZFIN.json.gz
+- url: https://fms.alliancegenome.org/download/VARIANT-ALLELE_NCBITaxon7955.tsv.gz
+  local_name: data/VARIANT-ALLELE_NCBITaxon7955.tsv.gz
+
+# Rat
 - url: https://fms.alliancegenome.org/download/AGM_RGD.json.gz
   local_name: data/AGM_RGD.json.gz
+- url : https://fms.alliancegenome.org/download/VARIANT-ALLELE_NCBITaxon10116.tsv.gz
+  local_name: data/VARIANT-ALLELE_NCBITaxon10116.tsv.gz
+

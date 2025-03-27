@@ -38,7 +38,7 @@ There are a few additional steps to complete before the project is ready for use
 
 #### Transform Code and Configuration
 
-1. Edit the `download.yaml`, `transform.py`, `transform.yaml`, and `metadata.yaml` files to suit your needs.
+1. Edit the `download.yaml`, `genotype.py`, `genotype.yaml`, and `metadata.yaml` files to suit your needs.
    - For more information, see the [Koza documentation](https://koza.monarchinitiative.org) and [kghub-downloader](https://github.com/monarch-initiative/kghub-downloader).
 1. Add any additional dependencies to the `pyproject.toml` file.
 1. Adjust the contents of the `tests` directory to test the functionality of your transform.

@@ -71,8 +71,11 @@ test: download
 download:
 	$(RUN) ingest download
 
+data/allele-to-gene-map.tsv: download
+	$(RUN) python scripts/generate-allele-to-gene-map.py
+
 .PHONY: run
-run: download
+run: download data/allele-to-gene-map.tsv
 	$(RUN) ingest transform
 	$(RUN) python scripts/generate-report.py
 
