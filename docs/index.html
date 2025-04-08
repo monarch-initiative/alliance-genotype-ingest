@@ -343,8 +343,25 @@
 <h1 id="alliance-genotype-report">alliance-genotype Report</h1>
 <p _="%" _docs_edges_report.md_="'docs/edges_report.md'" include="include">{ % include 'docs/nodes_report.md' %}</p>
 <h1 id="alliance-genotype-ingest-pipeline">Alliance Genotype Ingest Pipeline</h1>
-<p>This pipeline converts Alliance AGM files from MGI, ZFIN &amp; RGD to KGX TSV following the Biolink Model.</p>
-<p>The source files (AGM_{MGI,ZFIN,RGD}.json) provide associations to Alleles as well, but those edges are not currently captured. </p>
+<p>The Alliance of Genome Resources contains a subset of model organism data from member databases that is harmonized to the same model. Over time, as the alliance adds additional data types, individual MOD ingests can be replaced by collective Alliance ingest. The Alliance has bulk data downloads, ingest data formats, and an API. The preference should be bulk downloads first, followed by ingest formats, finally by API calls. In some cases it may continue to be more practical to load from individual MODs when data is not yet fully harmonized in the Alliance.</p>
+<ul>
+<li><a href="https://www.alliancegenome.org/downloads">Alliance Bulk Downloads</a></li>
+<li><a href="https://github.com/alliance-genome/agr_schemas">Alliance schemas</a></li>
+</ul>
+<p>This pipeline converts Alliance AGM (Affected Genomic Model) files from MGI, ZFIN &amp; RGD to KGX TSV following the Biolink Model. Additionally, it processes Alliance allele data and creates relationships between genotypes, alleles, and genes.</p>
+<h2 id="genotypes"><a href="#genotype">Genotypes</a></h2>
+<p>Genotypes from Alliance member databases (currently MGI, ZFIN, and RGD) are loaded from AGM JSON files. </p>
+<p><strong><strong>Biolink captured</strong></strong></p>
+<ul>
+<li>biolink:Genotype<ul>
+<li>id (row['primaryID'])</li>
+<li>name (row['name'])</li>
+<li>type (row['subtype'] if available)</li>
+<li>in_taxon (row['taxonId'])</li>
+<li>in_taxon_label (mapped from taxon ID)</li>
+</ul>
+</li>
+</ul>
 <p>Example transform:
 <div class="highlight"><pre><span></span><code> {
      &#39;primaryID&#39;: &#39;ZFIN:ZDB-FISH-150901-9455&#39;, 
@@ -363,6 +380,175 @@
     in_taxon: NCBITaxon:7955
     in_taxon_label: Danio rerio
 </code></pre></div></p>
+<h2 id="alleles"><a href="#allele">Alleles</a></h2>
+<p>Alleles (sequence variants) are loaded from Alliance VARIANT-ALLELE TSV files.</p>
+<p><strong><strong>Biolink captured</strong></strong></p>
+<ul>
+<li>biolink:SequenceVariant<ul>
+<li>id (row['AlleleId'])</li>
+<li>name (row['AlleleSymbol'])</li>
+<li>synonym (parsed from row['AlleleSynonyms'])</li>
+<li>in_taxon (row['Taxon'])</li>
+<li>in_taxon_label (row['SpeciesName'])</li>
+</ul>
+</li>
+</ul>
+<p>Example transform:
+<div class="highlight"><pre><span></span><code># Source data
+{
+    &quot;AlleleId&quot;: &quot;ZFIN:ZDB-ALT-123456-7&quot;,
+    &quot;AlleleSymbol&quot;: &quot;tyr&lt;b1&gt;&quot;,
+    &quot;AlleleSynonyms&quot;: &quot;tyrosinase b1,tyr-b1&quot;,
+    &quot;Taxon&quot;: &quot;NCBITaxon:7955&quot;,
+    &quot;SpeciesName&quot;: &quot;Danio rerio&quot;,
+    &quot;AlleleAssociatedGeneId&quot;: &quot;ZFIN:ZDB-GENE-000508-1&quot;,
+    &quot;AlleleAssociatedGeneSymbol&quot;: &quot;tyr&quot;,
+    &quot;VariantsTypeId&quot;: &quot;SO:0001059&quot;
+}
+</code></pre></div></p>
+<p>Is transformed into:
+<div class="highlight"><pre><span></span><code>category: biolink:SequenceVariant
+id: ZFIN:ZDB-ALT-123456-7
+name: tyr&lt;b1&gt;
+in_taxon: NCBITaxon:7955
+in_taxon_label: Danio rerio
+synonym: [&quot;tyrosinase b1&quot;, &quot;tyr-b1&quot;]
+</code></pre></div></p>
+<h2 id="genotype-to-variant-association"><a href="#genotype_to_variant">Genotype to Variant Association</a></h2>
+<p>Associations between genotypes and their component alleles (variants) are created from the AGM JSON files.</p>
+<p><strong><strong>Biolink captured</strong></strong></p>
+<ul>
+<li>biolink:GenotypeToVariantAssociation<ul>
+<li>id (random uuid)</li>
+<li>subject (genotype.id from row['primaryID'])</li>
+<li>predicate (biolink:has_sequence_variant)</li>
+<li>object (allele['alleleID'] from row['affectedGenomicModelComponents'])</li>
+<li>qualifier (allele['zygosity'] if available)</li>
+<li>primary_knowledge_source (mapped from source prefix in the primaryID)</li>
+<li>aggregator_knowledge_source (["infores:monarchinitiative", "infores:agrkb"])</li>
+<li>knowledge_level (knowledge_assertion)</li>
+<li>agent_type (manual_agent)</li>
+</ul>
+</li>
+</ul>
+<p>Example transform:
+<div class="highlight"><pre><span></span><code># Source data (partial)
+{
+    &#39;primaryID&#39;: &#39;ZFIN:ZDB-FISH-150901-9455&#39;,
+    &#39;affectedGenomicModelComponents&#39;: [
+        {&#39;alleleID&#39;: &#39;ZFIN:ZDB-ALT-060821-6&#39;, &#39;zygosity&#39;: &#39;GENO:0000137&#39;},
+        {&#39;alleleID&#39;: &#39;ZFIN:ZDB-ALT-100701-1&#39;, &#39;zygosity&#39;: &#39;GENO:0000136&#39;}
+    ],
+    &#39;taxonId&#39;: &#39;NCBITaxon:7955&#39;
+}
+</code></pre></div></p>
+<p>Is transformed into:
+<div class="highlight"><pre><span></span><code>category: biolink:GenotypeToVariantAssociation
+id: fa8b4567-e9c6-4ebd-a6f1-fcd82f3f0a83  # random UUID
+subject: ZFIN:ZDB-FISH-150901-9455
+predicate: biolink:has_sequence_variant
+object: ZFIN:ZDB-ALT-060821-6
+qualifier: GENO:0000137
+primary_knowledge_source: infores:zfin
+aggregator_knowledge_source: [&quot;infores:monarchinitiative&quot;, &quot;infores:agrkb&quot;]
+knowledge_level: knowledge_assertion
+agent_type: manual_agent
+</code></pre></div></p>
+<p>And a second association:
+<div class="highlight"><pre><span></span><code>category: biolink:GenotypeToVariantAssociation
+id: 8a7d6c2f-3b58-4e91-9f12-a7b8e6d234e0  # random UUID 
+subject: ZFIN:ZDB-FISH-150901-9455
+predicate: biolink:has_sequence_variant
+object: ZFIN:ZDB-ALT-100701-1
+qualifier: GENO:0000136
+primary_knowledge_source: infores:zfin
+aggregator_knowledge_source: [&quot;infores:monarchinitiative&quot;, &quot;infores:agrkb&quot;]
+knowledge_level: knowledge_assertion
+agent_type: manual_agent
+</code></pre></div></p>
+<h2 id="genotype-to-gene-association"><a href="#genotype_to_gene">Genotype to Gene Association</a></h2>
+<p>Associations between genotypes and genes are created by linking through alleles. The allele to gene mapping is precomputed from the VARIANT-ALLELE files.</p>
+<p><strong><strong>Biolink captured</strong></strong></p>
+<ul>
+<li>biolink:GenotypeToGeneAssociation<ul>
+<li>id (random uuid)</li>
+<li>subject (genotype.id from row['primaryID'])</li>
+<li>predicate (biolink:has_part)</li>
+<li>object (gene ID from allele_to_gene_lookup)</li>
+<li>primary_knowledge_source (mapped from source prefix in the primaryID)</li>
+<li>aggregator_knowledge_source (["infores:monarchinitiative", "infores:agrkb"])</li>
+<li>knowledge_level (knowledge_assertion)</li>
+<li>agent_type (manual_agent)</li>
+</ul>
+</li>
+</ul>
+<p>Example transform:
+<div class="highlight"><pre><span></span><code># Source data (partial)
+{
+    &#39;primaryID&#39;: &#39;ZFIN:ZDB-FISH-150901-9455&#39;,
+    &#39;affectedGenomicModelComponents&#39;: [
+        {&#39;alleleID&#39;: &#39;ZFIN:ZDB-ALT-060821-6&#39;, &#39;zygosity&#39;: &#39;GENO:0000137&#39;}
+    ],
+    &#39;taxonId&#39;: &#39;NCBITaxon:7955&#39;
+}
+
+# With allele_to_gene_lookup containing:
+# &#39;ZFIN:ZDB-ALT-060821-6&#39;: {&#39;AlleleAssociatedGeneId&#39;: &#39;ZFIN:ZDB-GENE-030616-554&#39;}
+</code></pre></div></p>
+<p>Is transformed into:
+<div class="highlight"><pre><span></span><code>category: biolink:GenotypeToGeneAssociation
+id: 5d9c3a17-85f2-4bd2-9e3f-c8a7b45e1234  # random UUID
+subject: ZFIN:ZDB-FISH-150901-9455
+predicate: biolink:has_part
+object: ZFIN:ZDB-GENE-030616-554
+primary_knowledge_source: infores:zfin
+aggregator_knowledge_source: [&quot;infores:monarchinitiative&quot;, &quot;infores:agrkb&quot;]
+knowledge_level: knowledge_assertion
+agent_type: manual_agent
+</code></pre></div></p>
+<h2 id="variant-to-gene-association"><a href="#variant_to_gene">Variant to Gene Association</a></h2>
+<p>Associations between alleles (variants) and genes are created from the VARIANT-ALLELE files.</p>
+<p><strong><strong>Biolink captured</strong></strong></p>
+<ul>
+<li>biolink:VariantToGeneAssociation<ul>
+<li>id (random uuid)</li>
+<li>subject (row['AlleleId'])</li>
+<li>predicate (biolink:is_sequence_variant_of)</li>
+<li>original_predicate (row['VariantsTypeId'])</li>
+<li>object (row['AlleleAssociatedGeneId'])</li>
+<li>primary_knowledge_source (mapped from the source prefix in the AlleleId)</li>
+<li>aggregator_knowledge_source (["infores:monarchinitiative", "infores:agrkb"])</li>
+<li>knowledge_level (knowledge_assertion)</li>
+<li>agent_type (manual_agent)</li>
+</ul>
+</li>
+</ul>
+<p>Example transform:
+<div class="highlight"><pre><span></span><code># Source data
+{
+    &quot;AlleleId&quot;: &quot;ZFIN:ZDB-ALT-123456-7&quot;,
+    &quot;AlleleSymbol&quot;: &quot;tyr&lt;b1&gt;&quot;,
+    &quot;Taxon&quot;: &quot;NCBITaxon:7955&quot;,
+    &quot;SpeciesName&quot;: &quot;Danio rerio&quot;,
+    &quot;AlleleAssociatedGeneId&quot;: &quot;ZFIN:ZDB-GENE-000508-1&quot;,
+    &quot;AlleleAssociatedGeneSymbol&quot;: &quot;tyr&quot;,
+    &quot;VariantsTypeId&quot;: &quot;SO:0001059&quot;  # sequence_alteration
+}
+</code></pre></div></p>
+<p>Is transformed into:
+<div class="highlight"><pre><span></span><code>category: biolink:VariantToGeneAssociation
+id: 2e4c6a8d-1b3f-4e7a-9d5c-8a6b4c2e3d5f  # random UUID
+subject: ZFIN:ZDB-ALT-123456-7
+predicate: biolink:is_sequence_variant_of
+original_predicate: SO:0001059
+object: ZFIN:ZDB-GENE-000508-1
+primary_knowledge_source: infores:zfin
+aggregator_knowledge_source: [&quot;infores:monarchinitiative&quot;, &quot;infores:agrkb&quot;]
+knowledge_level: knowledge_assertion
+agent_type: manual_agent
+</code></pre></div></p>
+<h2 id="citation">Citation</h2>
+<p>Harmonizing model organism data in the Alliance of Genome Resources. 2022. Alliance of Genome Resources Consortium. Genetics, Volume 220, Issue 4, April 2022. Published Online: 25 February 2022. doi: doi.org/10.1093/genetics/iyac022. PMID: 35380658;  PMCID: PMC8982023.</p>
 
 
 
