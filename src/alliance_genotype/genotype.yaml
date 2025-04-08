@@ -16,6 +16,9 @@ required_properties:
   - name
   - taxonId
 
+depends_on:
+  - 'src/alliance_genotype/allele_to_gene_map.yaml'
+
 node_properties:
   - id
   - category
@@ -24,18 +27,17 @@ node_properties:
   - in_taxon
   - in_taxon_label
 
-# genotype to allele/variant associations are on hold initially
-#edge_properties:
-#  - id
-#  - category
-#  - subject
-#  - predicate
-#  - object
-#  - qualifier
-#  - primary_knowledge_source
-#  - aggregator_knowledge_source
-#  - knowledge_level
-#  - agent_type
+edge_properties:
+ - id
+ - category
+ - subject
+ - predicate
+ - object
+ - qualifier
+ - primary_knowledge_source
+ - aggregator_knowledge_source
+ - knowledge_level
+ - agent_type
 
 
 
