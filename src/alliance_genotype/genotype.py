@@ -59,12 +59,13 @@ while (row := koza_app.get_row()) is not None:
         entities.append(genotype_to_variant_association)
 
         gene = allele_to_gene_lookup.get(allele["alleleID"], {}).get('AlleleAssociatedGeneId', None)
+        print("gene: ", gene)
         if gene:
             genotype_to_gene_association = GenotypeToGeneAssociation(
                 id=str(uuid.uuid4()),
                 subject=genotype.id,
-                # TODO: This doesn't feel like the right predicate
-                predicate="biolink:has_part",
+                # More specific predicate may come eventually, keeping it vague for now
+                predicate="biolink:related_to",
                 object=gene,
                 primary_knowledge_source=source_map[row["primaryID"].split(':')[0]],
                 aggregator_knowledge_source=["infores:monarchinitiative", "infores:agrkb"],

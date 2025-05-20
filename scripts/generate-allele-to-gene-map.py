@@ -1,5 +1,4 @@
-import duckdb 
-
+import duckdb
 
 db = duckdb.connect(database=':memory:', read_only=False)
 db.execute("""

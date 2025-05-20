@@ -1,6 +1,7 @@
 """Test file for the Alliance allele transform script."""
 import pytest
 from biolink_model.datamodel.pydanticmodel_v2 import SequenceVariant, VariantToGeneAssociation
+from koza.utils.testing_utils import mock_koza  # noqa: F401
 
 # Define the ingest name and transform script path
 INGEST_NAME = "alliance_allele"
@@ -20,11 +21,7 @@ def zfin_allele(mock_koza):
         "VariantsTypeId": "SO:0001059",  # sequence_alteration
     }
 
-    return mock_koza(
-        INGEST_NAME,
-        row,
-        TRANSFORM_SCRIPT,
-    )
+    return mock_koza(INGEST_NAME, row, TRANSFORM_SCRIPT)
 
 
 @pytest.fixture
@@ -40,11 +37,7 @@ def mgi_allele(mock_koza):
         "VariantsTypeId": "SO:1000008",  # point_mutation
     }
 
-    return mock_koza(
-        INGEST_NAME,
-        row,
-        TRANSFORM_SCRIPT,
-    )
+    return mock_koza(INGEST_NAME, row, TRANSFORM_SCRIPT)
 
 
 @pytest.fixture
@@ -59,11 +52,7 @@ def allele_without_gene(mock_koza):
         "VariantsTypeId": "SO:0000667",  # insertion
     }
 
-    return mock_koza(
-        INGEST_NAME,
-        row,
-        TRANSFORM_SCRIPT,
-    )
+    return mock_koza(INGEST_NAME, row, TRANSFORM_SCRIPT)
 
 
 def test_zfin_allele_transform(zfin_allele):

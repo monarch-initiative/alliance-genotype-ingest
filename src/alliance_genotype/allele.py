@@ -21,6 +21,7 @@ source_map = {
     "ZFIN": "infores:zfin",
 }
 
+
 def get_predicate(variant_type: str) -> str:
     # TODO: Allele type to predicate mapping is not straightforward right now by SO
 
